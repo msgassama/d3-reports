@@ -3,6 +3,7 @@ import { Container } from 'react-bootstrap'
 import AxisBottom from './barcomponents/AxisBottom';
 import { scaleBand, scaleLinear } from 'd3'
 import AxisLeft from './barcomponents/AxisLeft';
+import Bars from './barcomponents/Bars';
 
 const BarChart = ({data=[]}) => {
   const margin = { top: 10, right: 0, bottom: 20, left: 30 };
@@ -11,8 +12,8 @@ const BarChart = ({data=[]}) => {
 
   const scaleX = scaleBand()
     .domain(data.map(({ label }) => label))
-    .range([0, width]);
-
+    .range([0, width])
+    .padding(0.5);
   const scaleY = scaleLinear()
     .domain([0, Math.max(...data.map(({ value }) => value))])
     .range([height, 0]);
@@ -25,6 +26,7 @@ const BarChart = ({data=[]}) => {
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <AxisBottom scale={scaleX} transform={`translate(0, ${height})`} />
         <AxisLeft scale={scaleY} />
+        <Bars data={data} height={height} scaleX={scaleX} scaleY={scaleY} />
       </g>
     </svg>
   )
