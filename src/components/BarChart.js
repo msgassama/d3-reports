@@ -1,5 +1,4 @@
 import React from 'react'
-import { Container } from 'react-bootstrap'
 import AxisBottom from './barcomponents/AxisBottom';
 import { scaleBand, scaleLinear } from 'd3'
 import AxisLeft from './barcomponents/AxisLeft';
