@@ -1,4 +1,4 @@
-import { curveMonotoneX, line, scaleBand, scaleLinear, scaleOrdinal } from 'd3';
+import { curveLinear, curveLinearClosed, curveMonotoneX, line, scaleBand, scaleLinear, scaleOrdinal } from 'd3';
 import React from 'react'
 import AxisLeft from './barcomponents/AxisLeft';
 import AxisBottom from './custom/AxisBottom';
@@ -24,7 +24,7 @@ const MultiSeriesLineChart = ({data=[]}) => {
     const lineGenerator = line()
     .x(({ label }) => xScale(label))
     .y(({ value }) => yScale(value))
-    .curve(curveMonotoneX);
+    .curve(curveLinear);
 
     // const scaleY = scaleLinear()
     // .domain([0, Math.max(...data.map(({ value }) => value))])
@@ -40,13 +40,31 @@ const MultiSeriesLineChart = ({data=[]}) => {
         <AxisBottom scales={{ x: xScale }} transform={`translate(0, ${height})`} />
         <AxisLeft scale={yScale} />
         {data.map(({ category, data }) => (
+        //   <path
+        //     key={category}
+        //     d={lineGenerator(data)}
+        //     fill="none"
+        //     stroke={colorScale(category)}
+        //     strokeWidth={2}
+        //   />
+        <g key={category}>
           <path
-            key={category}
             d={lineGenerator(data)}
             fill="none"
             stroke={colorScale(category)}
             strokeWidth={2}
           />
+          {data.map(({ label, value }) => (
+            <circle
+            key={`${category}-${label}`}
+            className={`data-point ${category}`}
+            cx={xScale(label)}
+            cy={yScale(value)}
+            r={4} // rayon du cercle
+            fill={colorScale(category)} // coul
+            />
+          ))}
+        </g>
         ))}
         </g>
     </svg>

@@ -20,8 +20,8 @@ export const DATA_BY_CATEGORY = [
   {
     category: "Cleaning",
     data: [
-      { label: "Monday", value: 80 },
-      { label: "Tuesday", value: 100 },
+      { label: "Monday", value: 0 },
+      { label: "Tuesday", value: 130 },
       { label: "Wednesday", value: 70 },
       { label: "Thursday", value: 90 },
       { label: "Friday", value: 110 },
@@ -30,7 +30,7 @@ export const DATA_BY_CATEGORY = [
   {
     category: "Housekeeping",
     data: [
-      { label: "Monday", value: 120 },
+      { label: "Monday", value: 0 },
       { label: "Tuesday", value: 140 },
       { label: "Wednesday", value: 110 },
       { label: "Thursday", value: 130 },
