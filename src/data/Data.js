@@ -38,3 +38,46 @@ export const DATA_BY_CATEGORY = [
     ],
   },
 ];
+
+export const STACKED_BAR_CHART_DATA = [
+  {
+    category: "Monday",
+    values: [
+      { label: "Catering", value: 60 },
+      { label: "Cleaning", value: 160 },
+      { label: "Housekeeping", value: 60 },
+    ],
+  },
+  {
+    category: "Tuesday",
+    values: [
+      { label: "Catering", value: 80 },
+      { label: "Cleaning", value: 200 },
+      { label: "Housekeeping", value: 40 },
+    ],
+  },
+  {
+    category: "Wednesday",
+    values: [
+      { label: "Catering", value: 100 },
+      { label: "Cleaning", value: 120 },
+      { label: "Housekeeping", value: 10 },
+    ],
+  },
+  {
+    category: "Thursday",
+    values: [
+      { label: "Catering", value: 70 },
+      { label: "Cleaning", value: 180 },
+      { label: "Housekeeping", value: 30 },
+    ],
+  },
+  {
+    category: "Friday",
+    values: [
+      { label: "Catering", value: 90 },
+      { label: "Cleaning", value: 140 },
+      { label: "Housekeeping", value: 50 },
+    ],
+  },
+];
