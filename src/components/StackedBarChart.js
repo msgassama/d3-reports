@@ -8,7 +8,7 @@ function sum(values) {
 export function StackedBarChart({ data }) {
   const axisBottomRef = useRef(null);
   const axisLeftRef = useRef(null);
-  
+  const legendRef = useRef(null);
 
   const categories = data.map((d) => d.for_date);
   const subgroups = data[0].values.map((d) => d.label);
@@ -44,7 +44,146 @@ export function StackedBarChart({ data }) {
     if (axisLeftRef.current) {
       d3.select(axisLeftRef.current).call(d3.axisLeft(scaleY));
     }
-  }, [scaleX, scaleY]);
+    // if (legendRef.current) {
+    //   const legend = d3.select(legendRef.current);
+    //   const legendSize = 20;
+    //   const legendSpacing = 30; // Espacement vertical entre les éléments de légende
+  
+    //   legend
+    //     .selectAll("rect")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("rect")
+    //     .attr("x", (d, i) => i * (legendSize + 10))
+    //     .attr("y", 0)
+    //     .attr("width", legendSize)
+    //     .attr("height", legendSize)
+    //     .style("fill", color);
+  
+    //   legend
+    //     .selectAll("text")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("text")
+    //     .attr("x", (d, i) => i * (legendSize + 10) + legendSize + 5)
+    //     .attr("y", 0) // Début avec un décalage vertical de 0
+    //     .text((d) => d)
+    //     .attr("transform", (d, i) => `translate(0, ${i * legendSpacing})`); // Décalage vertical en fonction de l'index
+  
+    //   const legendWidth = legend.node()?.getBBox().width || 0;
+    //   legend.attr("transform", `translate(${(width - legendWidth) / 2}, ${margin.top})`);
+    // }
+    // if (legendRef.current) {
+    //   const legend = d3.select(legendRef.current);
+    //   const legendSize = 20;
+    //   const legendSpacing = 10; // Espacement horizontal entre les éléments de légende
+  
+    //   legend
+    //     .selectAll("rect")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("rect")
+    //     .attr("x", (d, i) => i * (legendSize + legendSpacing))
+    //     .attr("y", -legendSize / 2) // Positionnement des rectangles au-dessus de l'axe y
+    //     .attr("width", legendSize)
+    //     .attr("height", legendSize)
+    //     .style("fill", color);
+  
+    //   legend
+    //     .selectAll("text")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("text")
+    //     .attr("x", (d, i) => i * (legendSize + legendSpacing) + legendSize / 2)
+    //     .attr("y", -legendSize / 2 - 5) // Positionnement des textes au-dessus de l'axe y avec un décalage vers le haut
+    //     .attr("text-anchor", "middle") // Alignement horizontal du texte au centre
+    //     .text((d) => d);
+  
+    //   const legendWidth =
+    //     subgroups.length * legendSize + (subgroups.length - 1) * legendSpacing;
+    //   legend.attr(
+    //     "transform",
+    //     `translate(${(width - legendWidth) / 2}, ${margin.top})`
+    //   );
+    // }
+    // if (legendRef.current) {
+    //   const legend = d3.select(legendRef.current);
+    //   const legendSize = 20;
+    //   const legendSpacing = 10; // Espacement horizontal entre les éléments de légende
+    //   const legendPaddingTop = 10; // Espacement entre le haut du SVG et les légendes
+  
+    //   legend
+    //     .selectAll("rect")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("rect")
+    //     .attr("x", (d, i) => i * (legendSize + legendSpacing))
+    //     .attr("y", -legendSize / 2 + legendPaddingTop) // Positionnement des rectangles avec un décalage vers le bas
+    //     .attr("width", legendSize)
+    //     .attr("height", legendSize)
+    //     .style("fill", color);
+  
+    //   legend
+    //     .selectAll("text")
+    //     .data(subgroups)
+    //     .enter()
+    //     .append("text")
+    //     .attr("x", (d, i) => i * (legendSize + legendSpacing) + legendSize / 2)
+    //     .attr("y", -legendSize / 2 - 5 + legendPaddingTop) // Positionnement des textes avec un décalage vers le bas
+    //     .attr("text-anchor", "middle") // Alignement horizontal du texte au centre
+    //     .text((d) => d);
+  
+    //   const legendWidth =
+    //     subgroups.length * legendSize + (subgroups.length - 1) * legendSpacing;
+    //   const legendHeight = legend.node()?.getBBox().height || 0;
+    //   legend.attr(
+    //     "transform",
+    //     `translate(${(width - legendWidth) / 2}, ${margin.top + legendHeight + legendPaddingTop})`
+    //   );
+    // }
+    if (legendRef.current) {
+      const legend = d3.select(legendRef.current);
+      const legendSize = 20;
+      const legendSpacing = 30; // Espacement horizontal entre les éléments de légende
+      const legendPaddingTop = 10; // Espacement entre le haut du SVG et les légendes
+      const legendLineHeight = legendSize + 5; // Hauteur d'une ligne de légende (rectangle + espacement + texte)
+  
+      legend
+        .selectAll("g")
+        .data(subgroups)
+        .enter()
+        .append("g")
+        .attr(
+          "transform",
+          (d, i) =>
+            `translate(${i * (legendSize + legendSpacing)}, ${legendPaddingTop})`
+        )
+        .each(function (d) {
+          const group = d3.select(this);
+  
+          group
+            .append("rect")
+            .attr("width", legendSize)
+            .attr("height", legendSize)
+            .style("fill", color(d));
+  
+          group
+            .append("text")
+            .attr("x", legendSize / 2)
+            .attr("y", -5) // Positionnement du texte au-dessus du rectangle
+            .attr("text-anchor", "middle")
+            .text(d);
+        });
+  
+      const legendWidth =
+        subgroups.length * legendSize + (subgroups.length - 1) * legendSpacing;
+      const legendHeight = legendLineHeight; // Hauteur totale du groupe de légendes
+      legend.attr(
+        "transform",
+        `translate(${(width - legendWidth) / 2}, ${margin.top + legendHeight + legendPaddingTop})`
+      );
+    }
+  }, [scaleX, scaleY, color, subgroups, margin.top, width]);
 
   return (
     <svg
@@ -54,6 +193,10 @@ export function StackedBarChart({ data }) {
       <g transform={`translate(${margin.left}, ${margin.top})`}>
         <g ref={axisBottomRef} transform={`translate(0, ${height})`} />
         <g ref={axisLeftRef} />
+        <g
+  ref={legendRef}
+  
+/>
         {stacked.map((data, index) => {
           return (
             <g key={`group-${index}`} fill={color(data.key)}>
