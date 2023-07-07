@@ -1,7 +1,7 @@
 import { Col, Container, Row } from 'react-bootstrap';
 import './App.css';
 import BarChart from './components/BarChart';
-import { DATA, DATA_BY_CATEGORY, STACKED_BAR_CHART_DATA } from './data/Data'
+import { DATA, DATA_BY_CATEGORY, DATA_BY_STATE, STACKED_BAR_CHART_DATA } from './data/Data'
 import MultiSeriesLineChart from './components/MultiSeriesLineChart';
 import StackedBarChart from './components/StackedBarChart';
 
@@ -20,7 +20,7 @@ function App() {
       </Row> */}
        <Row>
         <Col className='col-md-8 offset-md-4'>
-          <StackedBarChart data={STACKED_BAR_CHART_DATA} />
+          <StackedBarChart data={DATA_BY_STATE} />
         </Col>
       </Row>
     </Container>

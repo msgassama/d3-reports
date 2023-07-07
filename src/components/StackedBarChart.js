@@ -8,8 +8,9 @@ function sum(values) {
 export function StackedBarChart({ data }) {
   const axisBottomRef = useRef(null);
   const axisLeftRef = useRef(null);
+  
 
-  const categories = data.map((d) => d.category);
+  const categories = data.map((d) => d.for_date);
   const subgroups = data[0].values.map((d) => d.label);
   const max = Math.max(
     ...data.map((d) => sum(d.values.map((v) => v.value)))
@@ -27,7 +28,7 @@ export function StackedBarChart({ data }) {
     .range(["#e41a1c", "#377eb8", "#4daf4a"]);
   const stacked = d3.stack().keys(subgroups)(
     data.map((d) => ({
-      category: d.category,
+      for_date: d.for_date,
       ...d.values.reduce(
         (acc, value) => ({ ...acc, [value.label]: value.value }),
         {}
@@ -57,7 +58,7 @@ export function StackedBarChart({ data }) {
           return (
             <g key={`group-${index}`} fill={color(data.key)}>
               {data.map((d, index) => {
-                const label = String(d.data.category);
+                const label = String(d.data.for_date);
                 const y0 = scaleY(d[0]);
                 const y1 = scaleY(d[1]);
 

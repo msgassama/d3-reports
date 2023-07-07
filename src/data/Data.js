@@ -81,3 +81,46 @@ export const STACKED_BAR_CHART_DATA = [
     ],
   },
 ];
+
+export const DATA_BY_STATE = [
+  {
+    for_date: "Feb 2023",
+    values: [
+      { label: "Open", value: 1 },
+      { label: "Solved", value: 0 },
+      { label: "Closed", value: 0 },
+    ],
+  },
+  {
+    for_date: "Apr 2023",
+    values: [
+      { label: "Open", value: 1 },
+      { label: "Solved", value: 0 },
+      { label: "Closed", value: 1 },
+    ],
+  },
+  {
+    for_date: "May 2023",
+    values: [
+      { label: "Open", value: 1 },
+      { label: "Solved", value: 0 },
+      { label: "Closed", value: 1 },
+    ],
+  },
+  {
+    for_date: "Jun 2023",
+    values: [
+      { label: "Open", value: 0 },
+      { label: "Solved", value: 0 },
+      { label: "Closed", value: 2 },
+    ],
+  },
+  {
+    for_date: "Jul 2023",
+    values: [
+      { label: "Open", value: 6 },
+      { label: "Solved", value: 2 },
+      { label: "Closed", value: 2 },
+    ],
+  },
+];
